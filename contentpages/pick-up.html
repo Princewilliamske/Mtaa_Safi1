@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>homepage/mtaaSafi.com</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kavoon:wght@400&display=swap" />
+    <link rel="stylesheet" href="styles/FormStyles.css"/>
+  </head>
+  <body>
+      <span class="mtaa-safi">mTaa Safi</span>
+      <img src="../Images/profile.jpg" alt="Profile Icon" class="profile-icon">
+      <span class="username">Username</span>
+    </div>
+      <div class="content">
+        <a href="Homepage.html" id="back-home"><button class="button1">Back</button></a>
+        <form method="post" action="pickup_form.php" class="form"  id="pick-up">
+         
+            <div class="fhead">Waste Pick-Up Information</div>
+            <div class="name">
+                 <label class="labels">Name:</label>
+                 <input type="text" class="inputfields" id="name" name="name" required>
+            </div>
+            <div class="phone">
+                <label class="labels">Phone number:</label>
+                <input type="tel" class="inputfields" id="phone-number" name="phone-number" placeholder="07********" required !important>
+            </div>
+            <div class="country">
+            <label class="labels">Country of residence:</label>
+            <input type="text" class="inputfields" id="country" name="country" required>
+            </div>
+            <div class="city">
+                <label class="labels">City/Town:</label>
+                <input type="text" class="inputfields" id="city" name="city" required>
+            </div>
+            <div class="Location">
+                <label class="labels">Location:</label>
+                <input type="text" class="inputfields" id="location" name="location" required>
+            </div>
+            <div class="wasteL">
+              <label class="labels">Waste Category:</label> <br>
+            </div>
+            <div class="waste-category">
+                  <div class="house">
+                      <input type="checkbox" id="Household Waste" name="wasteCat" Value="Household Waste">
+                      <label for="Household Waste">Household Waste</label><br>
+                  </div>
+                  <div class="office">
+                      <input type="checkbox" id="Office Waste" name="wasteCat" Value="Office Waste">
+                      <label for="Office Waste">Office Waste</label><br>
+                    </div>
+                    <div class="hospital">
+                      <input type="checkbox" id="Hospital Waste" name="wasteCat" Value="Hospital Waste">
+                      <label for="Hospital Waste">Hospital Waste</label><br>
+                    </div>
+                    <div class="industrial">
+                      <input type="checkbox" id="Industrial Waste" name="wasteCat" Value="Industrial Waste">
+                      <label for="Industrial Waste">Industrial Waste</label><br>
+                    </div>
+            </div>
+                <div class="PayL">
+                  <label class="labels">Mode of Payment:</label><br>
+                </div>
+                <div class="Payment">
+                      <div class="mpesa">
+                          <input type="radio" id="Mpesa" name="Payment" value="Mpesa">
+                            <label for="Mpesa">M-Pesa</label><br>
+                      </div>
+                      <div class="cash">
+                          <input type="radio" id="Cash" name="Payment" value="Cash">
+                          <label for="Cash">Cash</label><br>
+                      </div>
+                       <button type="submit" value="Submit" class="button2" onclick="SubmitForm()" >Submit</button>
+                       <button type="reset" value="Reset" class="button3">Refresh</button>
+        
+         </form>
+       <script>
+          //validate and post thee form
+            function SubmitForm(){
+              //validate form fields
+              if(validateForm()){
+                //form is valid proceed to submit
+                  var formdata = new FormData(document.getElementById('pick-up'));
+
+                  //make an Ajax request to submit the form
+                  var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                   if (this.readyState == 4 && this.status == 200) {
+                // Form submitted successfully, display success message
+                alert('Your Order is successful');
+            }
+        };
+        xhttp.open("POST", "pickup_form.php", true);
+        xhttp.send(formData);
+    }
+}
+
+              function validateForm(){
+                var name = document.getElementById('name').value;
+                var phone = document.getElementById('phone-number').value;
+                var country = document.getElementById('country').value;
+
+                //check if name is Empty
+                if(name===''){
+                  alert('Please Enter Your Name');
+                  return false;
+                }
+
+                //check if contact is empty
+                if(phone===''){
+                  alert('Please Enter your Name')
+                  return false;
+                }else if(isNaN(phone)){
+                  alert('Please Enter a valid Phone Number');
+                  return false;
+                }
+
+                //check if country is Kenya
+                if(country===''){
+                  alert('Please enter your Country');
+                  return false;
+                  }else if(country!='Kenya'){
+                    alert('Our services are not available in '+country);
+                    return false;
+                  }
+
+                  //if all checks are ok then post
+                  
+                  return true;                
+              }
+         </script>
+  </body>
+</html>

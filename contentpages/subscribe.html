@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>homepage/mtaaSafi.com</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kavoon:wght@400&display=swap" />
+    <link rel="stylesheet" href="styles/FormStyles.css"/>
+  </head>
+  <body>
+      <span class="mtaa-safi">mTaa Safi</span>
+      <img src="../Images/profile.jpg" alt="Profile Icon" class="profile-icon">
+      <span class="username">Username</span>
+    </div>
+      <div class="content">
+        <a href="Homepage.html" id="back-home"><button class="button1">Back</button></a>
+      <div class="subscribe">
+        <div class="fhead">choose the subscription that best suites you</div>
+        <div class="week">
+          <label class="subL">Weekly Subscription</label><span class="amount">KSH. 250</span>
+          <button class="buttonSub" value="250">SUBSCRIBE</button>
+        </div>
+        <div class="month">
+          <label class="subL">Monthly Subscription</label> <span class="amount">KSH. 800</span>
+          <button class="buttonSub" value="800">SUBSCRIBE</button>
+        </div>
+        <div class="annual">
+          <label class="subL">Annual Subscription</label><span class="amount">KSH. 8,000</span>
+          <button class="buttonSub" value="8000">SUBSCRIBE</button>
+        </div>
+        <div class="smart">
+          <label class="subL">Annual-Smart Subscription</label><span class="amount">KSH. 14,000</span>
+          <button class="buttonSub" value="14000">SUBSCRIBE</button>
+        </div>
+      </div>
+              <div id="payment-info" class="payment">
+                <form action="" method="post" class="payForm">
+                  <h3>Payment Information</h3>
+                  <label class="phoneL">Mpesa Number :</label>
+                  <input type="number" name="phonenumber" class="inputs" placeholder="Phone Number" required/><br>
+                  <label class="phoneL">Amount :</label>
+                  <input type="number"  name="amount" class="inputs" readonly="readonly" required><br>
+                  <button type="submit" class="payButton">Pay Now</button>
+                </form>
+              </div>
+            <script>
+                        // Get all buttons with the "buttonSub" class
+                const paymentButtons = document.querySelectorAll(".buttonSub");
+
+                paymentButtons.forEach(button => {
+                  button.addEventListener("click", () => {
+                    const amount = button.value; // Get the value of the clicked button
+
+                    // Show the payment information section if the amount is valid
+                    if (amount) {
+                      document.getElementById('payment-info').style.display = 'block';
+                      document.getElementById('payment-info').querySelector('[name=amount]').value = amount;
+                      
+                      // Validate payment information on keyup (from original code)
+                      let phoneNumber = document.querySelector('[name=phonenumber]');
+                      phoneNumber.addEventListener("keyup", validateInputs);
+                    } else {
+                      // Hide the payment information section if the amount is invalid or missing
+                      document.getElementById('payment-info').style.display = 'none';
+                    }
+                  });
+                });
+                  function validateInputs(){
+                    let amount = document.querySelector('[name =amount]'), 
+                    phonenumber = phoneNumber.value, 
+                    errorDiv = document.getElementById('error' );
+                    errorDiv.innerHTML = "";
+                    if(phonenumber == ""  || amount.value== ""){
+                      errorDiv.style.display = " block";
+                      errorDiv.innerHTML ="Please Fill  All Fields";
+                      return false;
+                      } else if (phonenumber.length  != 9 ) {
+                        errorDiv.style.display = "block"  ;
+                        errorDiv.innerHTML = " Phone number  should be 9 digits ";
+                        } else {
+                          return true;
+                          }
+                        }
+            </script>
+
+    </div>
+  </body>
+</html>
+    

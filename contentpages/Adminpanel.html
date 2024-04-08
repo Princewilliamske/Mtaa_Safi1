@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#editor {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <div id="pickupOrders"></div>
+        <div id="cleanupOrders"></div>
+        <div id="userCount"></div>
+        <div id="adminCount"></div>
+        <button onclick="showAddAdminForm()">Add Admin</button>
+        <button onclick="showRemoveAdminForm()">Remove Admin</button>
+        <div id="addAdminForm" style="display: none;">
+            <input type="text" id="newAdminUsername" placeholder="New Admin Username">
+            <button onclick="addAdmin()">Add Admin</button>
+        </div>
+        <div id="removeAdminForm" style="display: none;">
+            <input type="text" id="removeAdminUsername" placeholder="Admin Username to Remove">
+            <button onclick="removeAdmin()">Remove Admin</button>
+        </div>
+        <div id="editor">
+            <!-- Editor to write articles goes here -->
+        </div>
+        <div id="removeUserForm">
+            <input type="text" id="removeUserUsername" placeholder="User Username to Remove">
+            <button onclick="removeUser()">Remove User</button>
+        </div>
+    </div>
+    <script>
+        // JavaScript functions to interact with backend PHP scripts
+
+function showAddAdminForm() {
+    document.getElementById('addAdminForm').style.display = 'block';
+    document.getElementById('removeAdminForm').style.display = 'none';
+}
+
+function showRemoveAdminForm() {
+    document.getElementById('removeAdminForm').style.display = 'block';
+    document.getElementById('addAdminForm').style.display = 'none';
+}
+
+function addAdmin() {
+    var newAdminUsername = document.getElementById('newAdminUsername').value;
+    // Call PHP script to add admin
+}
+
+function removeAdmin() {
+    var removeAdminUsername = document.getElementById('removeAdminUsername').value;
+    // Call PHP script to remove admin
+}
+
+function removeUser() {
+    var removeUserUsername = document.getElementById('removeUserUsername').value;
+    // Call PHP script to remove user
+}
+
+// Other functions to fetch and display pickup orders, cleanup orders, user count, admin count, etc.
+
+    </script>
+</body>
+</html>

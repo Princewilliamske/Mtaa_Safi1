@@ -1,0 +1,85 @@
+<?php
+session_start();
+
+    include("../Authentication/connection.php");
+    include("../Authentication/functions.php");
+
+
+    // Forces a user to login on homepage
+   $user_data = check_login($con); 
+
+    // store user_id 
+    $_SESSION; 
+    ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>homepage/mtaaSafi.com</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kavoon:wght@400&display=swap" />
+    <link rel="stylesheet" href="styles/homestyles.css"/>
+    
+  </head>
+  <body>
+   <div class="dash">
+    <span class="mtaa-safi">mTaa Safi</span>
+    <img src="../Images/profile.jpg" alt="Profile Icon" class="profile-icon">
+    <span class="username">Username</span>
+  </div>    
+      <div class="home-content">
+        <div class="flex-row-c-1">
+          <div class="pick">
+            <a href="pick-up.html" id="pick-up">  
+              <img src="../Images/anna.jpg" class="pick-up">
+              <button class="pick-up-2">pick up</button>
+            </a>
+          </div>
+          <div class="clean">  
+            <a href="clean_up.html" id="cleanup">
+              <img src="../Images/suzy.jpg" class="clean-up">
+              <button class="clean-up-3">Clean-Up</button>
+            </a>
+          </div>
+          <div class="environment">
+            <a href="protect-environment.html" id="protect-environment">
+              <img src="../Images/alena.jpg" class="envi_campaign">
+              <button class="protect-the-environment">Green Nation</button>
+            </a>
+          </div>
+          <div class="orders">
+            <a href="accesories.html" id="accesories">
+              <img src="../Images/mumtahina.jpg" class="order_history">
+              <button class="buy-accessories">Order History</button>
+            </a>
+          </div>
+        </div>
+        <div class="flex-row">
+          <div class="subscribe">
+            <a href="subscribe.html" id="subscribe">
+              <img src="../Images/world.jpg" class="subs">
+              <button class="subscribe-4">Subscribe</button>
+            </a>
+          </div>
+          <div class="join">
+            <a href="join-us.html">
+              <img src="../Images/stijn.jpg" class="join_us">
+              <button class="joinb"> Join Us</button>
+            </a>
+          </div>
+          <div class="contact">
+            <a href="contact.html" id="contactus">
+              <img src="../Images/mumtahina.jpg" class="contact_us">
+              <button class="contact-us-6">Contact us</button>
+            </a>
+          </div>
+          <div class="about">
+            <a href="about.html" id="about">
+              <img src="../Images/alex.jpg" class="about_us">
+              <button class="about-7">About</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
