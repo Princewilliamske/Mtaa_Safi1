@@ -15,7 +15,7 @@
     </div>
       <div class="content">
         <a href="Homepage.html" id="back-home"><button class="button1">Back</button></a>
-        <form method="post" action="cleanup.php" class="form">
+        <form method="post" id="cleanup" class="form">
             <div class="fhead">Clean Up Activity Information</div>
             <div class="name">
                  <label class="labels">Name:</label>
@@ -42,26 +42,93 @@
                 </div>
                 <div class="Payment">
                       <div class="mpesa">
-                          <input type="radio" id="Community-Based" name="Type of Clean-Up" value="Community-Based">
+                          <input type="radio" id="Community-Based" name="Clean-Up_Type" value="Community-Based">
                             <label for="Mpesa">Community-Based</label><br>
                       </div>
                 
                       <div class="cash">
-                          <input type="radio" id="NGO/private" name="Type of Clean-Up" value="NGO/private">
+                          <input type="radio" id="NGO/private" name="Clean-Up_Type" value="NGO/private">
                           <label for="Cash">NGO/Private Institution</label><br>
                       </div>
                 </div>
                     <div class="Location">
                         <label class="labels">Areas to be covered:</label>
-                        <input type="number" class="inputfields" id="covered areas" name="covered areas" required>
+                        <input type="number" class="inputfields" id="covered areas" name="coveredareas" required>
                     </div>
                     <div class="support">
                         <label class="labels">List support you need from us:</label>
                         <input type="text" class="intextfields" id="support" name="support" placeholder="separate each item with ','" required>
                     </div>
-                       <input type="submit" value="Submit" class="buttons">
-                       <input type="reset" value="Reset" class="buttonr">
+                       <button type="submit" value="Submit" class="buttons" onclick="SubmitForm()">Submit</button>
+                       <button type="reset" value="Reset" class="buttonr">Refresh</button>
         
          </form>
+         <script>
+          //validate and post thee form
+            function SubmitForm(){
+              //validate form fields
+              if(validateForm()){
+                //form is valid proceed to submit
+                  var formdata = new FormData(document.getElementById('cleanup'));
+
+                  //make an Ajax request to submit the form
+                  var xrs = new XMLHttpRequest();
+                  xrs.open("POST", "cleanup_form.php", true);
+                    xrs.onreadystatechange = function() {
+                   if (this.readyState == 4 && this.status == 200) {
+                // Form submitted successfully, display success message
+                var response = JSON.parse(xhr.responseText);
+                        document.getElementById("message").innerHTML = response.message; // Display response message
+                        if (response.redirect) {
+                            window.location.href = response.redirect; // Redirect to homepage
+                        } else {
+                        console.error("Request failed: " + xrs.status); // Log error
+                        }
+          }
+        };
+       
+        xrs.send(formData);
+    }
+}
+
+              function validateForm(){
+                var name = document.getElementById('name').value;
+                var phone = document.getElementById('phone-number').value;
+                var country = document.getElementById('country').value;
+                var city = document.getElementById('city').value;
+
+                //check if name is Empty
+                if(name===''){
+                  alert('Please Enter Your Name');
+                  return false;
+                }
+
+                //check if contact is empty
+                if(phone===''){
+                  alert('Please Enter your Name')
+                  return false;
+                }else if(isNaN(phone)){
+                  alert('Please Enter a valid Phone Number');
+                  return false;
+                }
+
+                //check if country is Kenya
+                if(country===''){
+                  alert('Please enter your Country');
+                  return false;
+                  }else if(country!='Kenya'){
+                    alert('Our services are not available in '+country);
+                    return false;
+                  }
+                   //check if city is Empty
+                if(city===''){
+                  alert('Please Enter the city of cleanup');
+                  return false;
+                }
+                  //if all checks are ok then post
+                  
+                  return true;                
+              }
+         </script>
   </body>
 </html>

@@ -8,6 +8,9 @@ include("../Authentication/functions.php");
 // Start or resume the session
 session_start();
 
+$response = array();
+
+
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
 
@@ -18,44 +21,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $city = $_POST['city'];
     $location = $_POST['location'];
     
-    // Initialize variables for waste category and payment
-    $waste = "";
-    $pay = "";
+    // Initialize variables for cleanup_type
+    $clean_type = "";
 
-    // Check if waste category checkboxes are selected
-    if (isset($_POST['wasteCat'])) {
-        // Loop through each selected checkbox value
-        foreach ($_POST['wasteCat'] as $selectedWaste) {
-            // Assign selected waste category to the $waste variable
-            $waste .= $selectedWaste . ", "; // You might want to concatenate instead of returning
-        }
-        // Remove the last comma and space
-        $waste = rtrim($waste, ", ");
-    } else {
-       // No checkbox selected
-       echo "No category was selected";
-       return false;
-    }
-
-    // Check if payment method radio button is selected
-    if (isset($_POST['Payment'])) {
+    // Check if cleanup_type radio button is selected
+    if (isset($_POST['Clean-Up_Type'])) {
         // Assign selected payment method to the $pay variable
-        $pay = $_POST['Payment'];
+        $clean_type = $_POST['Clean-Up_Type'];
     } else {
-        // no payment solution selected
-        echo "No payment method chosen!!";
+        // no cleanup_type  selected
+        echo "o cleanup_type chosen!!";
     }
+    $area = $_POST['coveredareas'];
+    $support = $_POST['support'];
 
     // Basic form validation 
     if (!empty($name) && !empty($phone) && !empty($country) && !empty($city) && !empty($location) && is_numeric($phone)) {
-       
-        //generate orderID
-        $orderid = randomString(10);
 
-        // Insert new order into database
+        //generate cleanup ID
+        $cleanid = randomString(10);
+
         // Prepare the SQL statement with parameter binding
-        $stmt = mysqli_prepare($con, "INSERT INTO pickup_data (orderID, Name, Number, Country, Town, Location, Waste_Category, Mode_of_Payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($stmt, "ssssssss", $orderid, $name, $phone, $country, $city, $location, $waste, $pay);
+        $stmt = mysqli_prepare($con, "INSERT INTO cleanup_data (cleanupID, Name, Number, Country, Town, Location, Cleanup_type, Areas_covered, Support) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, "sssssssss",$cleanid, $name, $phone, $country, $city, $location, $clean_type, $area, $support);
+
 
         // Execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
@@ -77,5 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Please enter some valid information!";
     }
 
+   
     mysqli_close($con); // Close the database connection
 }

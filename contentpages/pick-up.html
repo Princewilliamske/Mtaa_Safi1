@@ -84,13 +84,20 @@
 
                   //make an Ajax request to submit the form
                   var xhttp = new XMLHttpRequest();
+                  xhttp.open("POST", "pickup_form.php", true);
                     xhttp.onreadystatechange = function() {
-                   if (this.readyState == 4 && this.status == 200) {
+                      if (this.readyState == 4 && this.status == 200) {
                 // Form submitted successfully, display success message
-                alert('Your Order is successful');
-            }
+                var response = JSON.parse(xhr.responseText);
+                        document.getElementById("message").innerHTML = response.message; // Display response message
+                        if (response.redirect) {
+                            window.location.href = response.redirect; // Redirect to homepage
+                        } else {
+                        console.error("Request failed: " + xrs.status); // Log error
+                        }
+          }
         };
-        xhttp.open("POST", "pickup_form.php", true);
+       
         xhttp.send(formData);
     }
 }
