@@ -1,15 +1,14 @@
 
 <?php
 
+// Start or resume the session
+session_start();
+
 // Include connection and functions files
 include("../Authentication/connection.php");
 include("../Authentication/functions.php");
 
-// Start or resume the session
-session_start();
-
 $response = array();
-
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 

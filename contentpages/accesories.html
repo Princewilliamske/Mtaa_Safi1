@@ -16,6 +16,23 @@
         <a href="Homepage.html" id="back-home"><button class="button1">Back</button></a>
       <div class="buy-accessories">
         <marquee transition="2s" class="out"><h3>Out of Stock!!!</h3></marque>  
+          <div id="dataContainer"></div>
+          <script>
+            // Fetch data from the server using AJAX
+              fetch('get_orders.php')
+                  .then(response => response.json())
+                  .then(data => {
+                      // Display data on the webpage
+                      const dataContainer = document.getElementById('dataContainer');
+                      data.forEach(item => {
+                          const div = document.createElement('div');
+                          div.textContent = `${item.id}: ${item.name}`;
+                          dataContainer.appendChild(div);
+                      });
+                  })
+                  .catch(error => console.error('Error fetching data:', error));
+
+          </script>
       </div>
     </div>
   </body>
