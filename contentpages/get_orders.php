@@ -4,6 +4,7 @@
 session_start();
 include("../Authentication/connection.php");
 
+
 // Fetch data from the database
 $query = "SELECT orderID, Name, Location, Waste_Category, Mode_of_Payment FROM pickup_data";
 $result = mysqli_query($con, $query);

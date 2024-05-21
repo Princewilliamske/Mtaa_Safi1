@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && !empty($phone) && !empty($country) && !empty($city) && !empty($location) && is_numeric($phone)) {
        
         //generate orderID
-        $orderid = randomString(10);
+        $orderid = randomString();
 
         // Insert new order into database
         // Prepare the SQL statement with parameter binding
@@ -59,8 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             // Success
+            header("Location: homepage.html"); // Redirect to homepage
+           
             $response['message'] = "Pickup Order successful";
-            $response['redirect'] = "homepage.html"; // Redirect to homepage
+           // $response['redirect'] = "homepage.html"; // Redirect to homepage
 
         } else {
             // Error

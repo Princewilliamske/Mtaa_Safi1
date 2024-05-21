@@ -7,6 +7,7 @@ session_start();
 // Include connection and functions files
 include("../Authentication/connection.php");
 include("../Authentication/functions.php");
+include("functions1.php");
 
 $response = array();
 
@@ -29,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $clean_type = $_POST['Clean-Up_Type'];
     } else {
         // no cleanup_type  selected
-        echo "o cleanup_type chosen!!";
+        echo "no cleanup_type chosen!!";
     }
     $area = $_POST['coveredareas'];
     $support = $_POST['support'];
@@ -48,13 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             // Success
-            $response['message'] = "Pickup Order successful";
+            echo "<script>alert('Pickup Order successful');</script>";
             $response['redirect'] = "homepage.html"; // Redirect to homepage
 
         } else {
             // Error
-            $response['message'] = "Pickup Order unsuccessful"+ mysqli_error($con);
+            echo "<script>alert('Pickup Order unsuccessful');</script>";
               // Display SQL error message
+              echo "Error: " . mysqli_error($con); 
         }
         
         echo json_encode($response); // Return response as JSON

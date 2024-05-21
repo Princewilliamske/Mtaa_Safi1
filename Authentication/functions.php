@@ -56,7 +56,9 @@ function random_num($length)
           }
 
           */
-          function randomString($length) {
+         function randomString() {
+
+            $length = 12;
             // Define characters to include in the random string
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $charLength = strlen($characters);

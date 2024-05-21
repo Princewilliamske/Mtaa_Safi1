@@ -77,8 +77,12 @@
                     xrs.onreadystatechange = function() {
                    if (this.readyState == 4 && this.status == 200) {
                 // Form submitted successfully, display success message
-                var response = JSON.parse(xhr.responseText);
+                var response = JSON.parse(xrs.responseText);
                         document.getElementById("message").innerHTML = response.message; // Display response message
+                        document.getElementById("message").innerHTML = xrs.responseText; // Display response message
+                        //document.getElementById("pickupForm").reset(); // Reset form
+
+                        // If redirect is set, redirect to the specified URL
                         if (response.redirect) {
                             window.location.href = response.redirect; // Redirect to homepage
                         } else {
