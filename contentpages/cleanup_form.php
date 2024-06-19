@@ -6,8 +6,6 @@ session_start();
 
 // Include connection and functions files
 include("../Authentication/connection.php");
-include("../Authentication/functions.php");
-include("functions1.php");
 
 $response = array();
 
@@ -39,7 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && !empty($phone) && !empty($country) && !empty($city) && !empty($location) && is_numeric($phone)) {
 
         //generate cleanup ID
-        $cleanid = randomString(10);
+        function generateUniqueID() {
+            return uniqid(bin2hex(random_bytes(5)), true);
+        }
+        $cleanid = generateUniqueID();
 
         // Prepare the SQL statement with parameter binding
         $stmt = mysqli_prepare($con, "INSERT INTO cleanup_data (cleanupID, Name, Number, Country, Town, Location, Cleanup_type, Areas_covered, Support) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -49,15 +50,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             // Success
-            echo "<script>alert('Pickup Order successful');</script>";
-            $response['redirect'] = "homepage.html"; // Redirect to homepage
-
-        } else {
-            // Error
-            echo "<script>alert('Pickup Order unsuccessful');</script>";
-              // Display SQL error message
-              echo "Error: " . mysqli_error($con); 
-        }
+            echo "<script>
+            alert('New records created successfully');
+            window.location.href = 'homepage.html';
+                     </script>";
+            } else {
+                // Error
+                echo "Error: " . $stmt->error;
+            }
+        
         
         echo json_encode($response); // Return response as JSON
         mysqli_stmt_close($stmt); // Close the prepared statement

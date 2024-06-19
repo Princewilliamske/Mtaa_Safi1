@@ -5,7 +5,8 @@ session_start();
 
 // Include connection and functions files
 include("../Authentication/connection.php");
-include("../Authentication/functions.php");
+
+
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
@@ -49,8 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && !empty($phone) && !empty($country) && !empty($city) && !empty($location) && is_numeric($phone)) {
        
         //generate orderID
-        $orderid = randomString();
-
+        function generateUniqueID() {
+            return uniqid(bin2hex(random_bytes(5)), true);
+        }
+        
+        $orderid = generateUniqueID();
         // Insert new order into database
         // Prepare the SQL statement with parameter binding
         $stmt = mysqli_prepare($con, "INSERT INTO pickup_data (orderID, Name, Number, Country, Town, Location, Waste_Category, Mode_of_Payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -59,15 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             // Success
-            header("Location: homepage.html"); // Redirect to homepage
-           
-            $response['message'] = "Pickup Order successful";
-           // $response['redirect'] = "homepage.html"; // Redirect to homepage
-
+            echo "<script>
+        alert('New records created successfully');
+        window.location.href = 'homepage.html';
+                 </script>";
         } else {
             // Error
-            $response['message'] = "Pickup Order unsuccessful"+ mysqli_error($con);
-              // Display SQL error message
+            echo "Error: " . $stmt->error;
         }
         
         echo json_encode($response); // Return response as JSON
